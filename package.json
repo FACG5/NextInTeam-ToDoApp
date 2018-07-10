@@ -1,0 +1,23 @@
+{
+  "name": "nextinteam-todoapp",
+  "version": "1.0.0",
+  "description": "this is a todo app",
+  "main": "dom.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FACG5/NextInTeam-ToDoApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FACG5/NextInTeam-ToDoApp/issues"
+  },
+  "homepage": "https://github.com/FACG5/NextInTeam-ToDoApp#readme",
+  "dependencies": {
+    "istanbul": "^0.4.5",
+    "tap-spec": "^5.0.0"
+  }
+}
