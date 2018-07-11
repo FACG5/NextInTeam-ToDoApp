@@ -7,9 +7,7 @@
   var addTodoForm = document.getElementById('add-todo');
 
   var state = [
-    { id: -3, description: 'first todo' },
-    { id: -2, description: 'second todo' },
-    { id: -1, description: 'third todo' },
+
   ]; // this is our initial todoList
 
   // This function takes a todo, it returns the DOM node representing that todo
@@ -18,17 +16,44 @@
     // you will need to use addEventListener
 
     // add span holding description
-
+    var span = document.createElement('span');
+    span.textContent = todo.description;
+    if (todo.mark) {
+      span.classlist.add("mark");
+    } else {
+      span.classlist.remove("mark");
+    }
+    todoNode.appendChild(span);
     // this adds the delete button
     var deleteButtonNode = document.createElement('button');
+    deleteButtonNode.textContent = 'delete';
+    deleteButtonNode.classList.add("delete-btn");
     deleteButtonNode.addEventListener('click', function(event) {
       var newState = todoFunctions.deleteTodo(state, todo.id);
       update(newState);
     });
+
     todoNode.appendChild(deleteButtonNode);
 
     // add markTodo button
+    var markTodoButtonNode = document.createElement('button');
+    markTodoButtonNode.textContent = 'Mark';
+    markTodoButtonNode.classList.add('mark-button');
+    markTodoButtonNode.addEventListener('click', function(event) {
+      var newState = todoFunctions.markTodo(state, todo.id);
+      update(newState);
+    });
 
+
+    todoNode.appendChild(markTodoButtonNode);
+    // add editTodo button
+    // var editTodoButtonNode= document.createElement('button');
+    // editTodoButtonNode.addEventListener('click'function(event){
+    //   var newState = todoFunctions.editTodo(state,todo.id);
+    //   update(newState);
+    // });
+    // editTodoButtonNode.textContent='edit'
+    // todoNode.appendChild(editTodoButtonNode);
     // add classes for css
 
     return todoNode;
@@ -41,10 +66,25 @@
       // what does event.preventDefault do?
       // what is inside event.target?
 
-      var description = '?'; // event.target ....
-
-      // hint: todoFunctions.addTodo
-      var newState = []; // ?? change this!
+      event.preventDefault();
+      var description = input.value; // event.target ....
+      var input = document.getElementsByName('description')[0];
+      var description = input.value;
+      if(input.value.trim() == ""){
+        return;
+      }
+      input.value="";
+      obj = {}
+      obj.description=description;
+      obj.mark=false;//id added in logic.js
+      // obj["id"] = 1;
+      // obj["description"] = value
+      // ll = {
+      //   id: todoFunctions.generateId,
+      //   description: value
+      // }
+       var newState = todoFunctions.addTodo(state, obj);
+      //var newState = []; // ?? change this!
       update(newState);
     });
   }
@@ -58,7 +98,7 @@
   // you do not need to change this function
   var renderState = function(state) {
     var todoListNode = document.createElement('ul');
-
+    todoList.id="todo-container-ul";
     state.forEach(function(todo) {
       todoListNode.appendChild(createTodoNode(todo));
     });
@@ -68,4 +108,11 @@
   };
 
   if (container) renderState(state);
+  if(localStorage.getItem('items')) {
+    state = JSON.parse(localStorage.getItem('items'));
+    update(state);
+  }
+  else {
+    state = [];
+  }
 })();
