@@ -5,18 +5,9 @@
 var todoFunctions = {
   // todoFunctions.generateId() will give you a unique id
   // You do not need to understand the implementation of this function.
-  generateId: (function() {
-    /*
-    aha1 = JSON.parse(localStorage.getItem("items"))
-    var idCounter;
 
-    if(typeof aha1[0] != 'undefined'){
-      idCounter = aha1[aha1.length-1].id+1;
-    }else{
-      idCounter = 0;
-    }
-    */
-    idCounter = 0;
+  generateId: (function() {
+    idCounter = StorageFunctions.getId();
 
     function incrementCounter() {
       return (idCounter += 1);
@@ -32,19 +23,20 @@ var todoFunctions = {
       return JSON.parse(JSON.stringify(todo));
     });
   },
-  
+
   addTodo: function(todos, newTodo) {
     // should leave the input argument todos unchanged (you can use cloneArrayOfObjects)
     // returns a new array, it should contain todos with the newTodo added to the end.
     // add an id to the newTodo. You can use the generateId function to create an id.
     // hint: array.concat
     // var newtodos = [...todo];
-   /* if(newTodo == ""){
+    /*
+    if(newTodo == ""){
       return todos
     }*/
     newTodo.id = todoFunctions.generateId();
     var todos = todos.concat(newTodo);
-    //todoFunctions.saveTodos(todos);
+    StorageFunctions.saveTodos(todos);
     return todos;
   },
   deleteTodo: function(todos, idToDelete) {
@@ -57,7 +49,7 @@ var todoFunctions = {
       else
         return true;
     });
-    //todoFunctions.saveTodos(todos);
+    StorageFunctions.saveTodos(todos);
     return todos;
   },
   markTodo: function(todos, idToMark) {
@@ -77,7 +69,7 @@ var todoFunctions = {
       }
       return x;
     })
-    //todoFunctions.saveTodos(todos);
+    StorageFunctions.saveTodos(todos);
     return todos;
   },
   sortTodos: function(todos, sortFunction) {
@@ -86,9 +78,7 @@ var todoFunctions = {
     // sortFunction will have same signature as the sort function in array.sort
     // hint: array.slice, array.sort
   },
-  saveTodos: function(todos){
-    localStorage.setItem('items', JSON.stringify(todos));
-  },
+
 };
 
 

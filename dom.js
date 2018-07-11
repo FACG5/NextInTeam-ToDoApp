@@ -6,9 +6,7 @@
   var container = document.getElementById('todo-container');
   var addTodoForm = document.getElementById('add-todo');
 
-  var state = [
-
-  ]; // this is our initial todoList
+  var state = []; // this is our initial todoList
 
   // This function takes a todo, it returns the DOM node representing that todo
   var createTodoNode = function(todo) {
@@ -44,7 +42,7 @@
       update(newState);
     });
 
-
+    console.log(todoNode)
     todoNode.appendChild(markTodoButtonNode);
     // add editTodo button
     // var editTodoButtonNode= document.createElement('button');
@@ -83,7 +81,7 @@
       //   id: todoFunctions.generateId,
       //   description: value
       // }
-       var newState = todoFunctions.addTodo(state, obj);
+      var newState = todoFunctions.addTodo(state, obj);
       //var newState = []; // ?? change this!
       update(newState);
     });
@@ -108,12 +106,12 @@
   };
 
   if (container) renderState(state);
-  /*if(localStorage.getItem('items')) {
+  if(localStorage.getItem('items')) {
     state = JSON.parse(localStorage.getItem('items'));
     update(state);
   }
   else {
     state = [];
   }
-  */
+  
 })();
