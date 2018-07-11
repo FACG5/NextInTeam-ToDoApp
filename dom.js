@@ -19,9 +19,9 @@
     var span = document.createElement('span');
     span.textContent = todo.description;
     if (todo.mark) {
-      span.classlist.add("mark");
+      span.classList.add("mark");
     } else {
-      span.classlist.remove("mark");
+      span.classList.remove("mark");
     }
     todoNode.appendChild(span);
     // this adds the delete button
@@ -38,7 +38,7 @@
     // add markTodo button
     var markTodoButtonNode = document.createElement('button');
     markTodoButtonNode.textContent = 'Mark';
-    markTodoButtonNode.classList.add('mark-button');
+    markTodoButtonNode.classList.add('mark-btn');
     markTodoButtonNode.addEventListener('click', function(event) {
       var newState = todoFunctions.markTodo(state, todo.id);
       update(newState);
@@ -65,7 +65,7 @@
       // https://developer.mozilla.org/en-US/docs/Web/Events/submit
       // what does event.preventDefault do?
       // what is inside event.target?
-
+      var input = document.getElementById("input");
       event.preventDefault();
       var description = input.value; // event.target ....
       var input = document.getElementsByName('description')[0];
@@ -98,7 +98,7 @@
   // you do not need to change this function
   var renderState = function(state) {
     var todoListNode = document.createElement('ul');
-    todoList.id="todo-container-ul";
+    todoListNode.id="todo-container-ul";
     state.forEach(function(todo) {
       todoListNode.appendChild(createTodoNode(todo));
     });
@@ -108,11 +108,12 @@
   };
 
   if (container) renderState(state);
-  if(localStorage.getItem('items')) {
+  /*if(localStorage.getItem('items')) {
     state = JSON.parse(localStorage.getItem('items'));
     update(state);
   }
   else {
     state = [];
   }
+  */
 })();
